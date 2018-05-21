@@ -1,0 +1,31 @@
+﻿@page "{UPI}"
+@model NewAttendanceChecker.Pages.StudentModel
+@{
+    ViewData["Title"] = "Student";
+}
+
+<h2>My Profile</h2>
+<h3>My name: @Model.Student.Name</h3>
+<h3>My courses:</h3>
+@foreach (var course in Model.Student.CourseTags)
+{
+    <h4>@course.Course.Name - @course.Course.Lecturer.Name</h4>
+
+}
+@if (Model.Sessions.Count() > 0)
+{
+    <h3>My active sessions:</h3>
+    foreach (var session in Model.Sessions)
+    {
+        <h4>@session.Course.Name </h4>
+        <form method="post">
+            <input name="checkInCode" />
+            <input type="hidden" name="UPI" value="@Model.Student.StudentID" />
+            <input type="hidden" name="realCode" value="@session.SessionID" />
+            <button type="submit">OK</button>
+        </form>
+
+    }
+
+}
+

@@ -1,0 +1,172 @@
+﻿@page
+@model Attendance_Checker.Pages.MarketModel
+@{
+    ViewData["Title"] = "Market";
+}
+@{
+    Layout = null;
+}
+<script src="~/js/Marketplace.js"></script>
+<script src="~/js/sweetalert2.all.min.js"></script>
+<script src="https://unpkg.com/promise-polyfill"></script>
+<link rel="stylesheet" href="~/css/sweetalert2.min.css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/css/Marketplace.css">
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <div>
+                <h1 class="header">Marketplace</h1>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Store</th>
+                        <th>Remaining</th>
+                        <th>Quantity</th>
+                        <th class="text-center">Tokens</th>
+                        <th class="text-center">Total</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="~/images/Indian.jpg" style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">Indian</a></h4>
+                                    <span>Curry + rice </span><span class="text-success"><strong></strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>20</strong></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                            <input type="email" class="form-control" id="exampleInputEmail1" value="1">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>100</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>100</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                            <button type="button" class="btn btn-success" onclick="Redeem()">
+                                <span class="glyphicon glyphicon-ok"></span> Redeem
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="~/images/chinese.jpg" style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">Chinese</a></h4>
+                                    <span>50% coupon </span><span class="text-success"><strong></strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>30</strong></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                            <input type="email" class="form-control" id="exampleInputEmail1" value="2">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>100</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>200</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                            <button type="button" class="btn btn-success" onclick="Redeem()">
+                                <span class="glyphicon glyphicon-ok"></span> Redeem
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="~/images/thai.jpg" style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">Thai</a></h4>
+                                    <span>20% coupon </span><span class="text-success"><strong></strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>30</strong></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                            <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>40</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>120</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                            <button type="button" class="btn btn-success" onclick="Redeem()">
+                                <span class="glyphicon glyphicon-ok"></span> Redeem
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="~/images/sushi.jpg" style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">St Pierre's</a></h4>
+                                    <span>Sushi of the day </span><span class="text-success"><strong></strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>50</strong></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                            <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>100</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>300</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                            <button type="button" class="btn btn-success" onclick="Redeem()">
+                                <span class="glyphicon glyphicon-ok"></span> Redeem
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="~/images/munchy.png" style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">Munchy Mart</a></h4>
+                                    <span>60% coupon </span><span class="text-success"><strong></strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>100</strong></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                            <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>50</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>150</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                            <button type="button" class="btn btn-success" onclick="Redeem()">
+                                <span class="glyphicon glyphicon-ok"></span> Redeem
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-6">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="~/images/dumplings.jpg" style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">Quad Dumplings</a></h4>
+                                    <span>Free drink </span><span class="text-success"><strong></strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>30</strong></td>
+                        <td class="col-md-1" style="text-align: center">
+                            <input type="email" class="form-control" id="exampleInputEmail1" value="2">
+                        </td>
+                        <td class="col-md-1 text-center"><strong>30</strong></td>
+                        <td class="col-md-1 text-center"><strong>60</strong></td>
+                        <td class="col-md-1">
+                            <button type="button" class="btn btn-success" onclick="Redeem()">
+                                <span class="glyphicon glyphicon-ok"></span> Redeem
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

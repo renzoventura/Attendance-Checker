@@ -1,0 +1,89 @@
+﻿@page "{Name}"
+@model NewAttendanceChecker.Pages.LecturerModel
+@{
+    ViewData["Title"] = "Lecturer";
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<h2>Lecturer</h2>
+<h5>My name: @Model.Lecturer.Name</h5>
+<h5>My course: @Model.Lecturer.Course.Name</h5>
+<button class="locationButton" style="display:none;" onclick="getLocation()">Try It</button>
+<form method="post">
+    <input type="hidden" name="id" value="@Model.Lecturer.Course.CourseID" />
+
+    <input type="hidden" name="lng" id="longValue"  />
+    <input type="hidden" name="lat" id="latValue"  />
+    <button type="submit">Make a session</button>
+</form>
+
+
+<script>
+    $(function () {
+        $(".locationButton").click();
+    });
+    var x = document.getElementById("demo");
+    var mylocation = document.getElementById("location");
+    var lat = "";
+    var lng = "";
+    var currentlocation = "";
+    var proper_address = document.getElementById("address");
+
+
+
+
+    function getLocation() {
+        console.log("lmao");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition); //getting current co-ordinates
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+      
+        lat = position.coords.latitude;             //current latitude
+        lng = position.coords.longitude;            //current longitude
+        $("#longValue").val(lng);
+        $("#latValue").val(lat);
+        console.log(lat);
+        console.log(lng);
+        getCurrentLocation();
+    }
+
+    function getCurrentLocation() {     //get name from our coordinates
+        var urlapi = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true"; //api
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", urlapi, true);
+        xhr.onload = function () {
+            var locationJSON = JSON.parse(xhr.responseText);
+
+            //console.log(xhr.responseText);        //prints the json string
+            //console.log(locationJSON.results[0].address_components[0]);
+            var get_nickname_dictionary = locationJSON.results[0].address_components[0]; //this variable gives us  dictionary
+            //console.log(address["long_name"]); //prints the location name
+            var get_address_dictionary = locationJSON.results[2].address_components[0];
+
+
+            get_address_dictionary = get_address_dictionary["long_name"];
+
+            currentlocation = get_nickname_dictionary["long_name"];  //THIS IS THE NAME OF CURRENT LOCATION FROM CO-ORDINAATES
+            console.log(currentlocation);
+
+            console.log(get_address_dictionary); //print proper address of current location from co-ordinates
+          
+        }
+        xhr.send(null);
+    }
+
+
+
+
+
+</script>

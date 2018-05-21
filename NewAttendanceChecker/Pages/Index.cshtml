@@ -1,0 +1,478 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = null;
+}
+
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="~/js/sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/promise-polyfill"></script>
+    <link rel="stylesheet" href="~/css/sweetalert2.min.css">
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/css/Feedback.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script type="text/javascript" src="~/js/Feedback.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext,vietnamese" rel="stylesheet">
+
+</head>
+<body>
+
+
+
+    <img src="~/images/logo.png" class="logo" />
+    
+    <a href="Market"><img src="~/images/cart.png" class="cart" /></a>
+    @*<button onclick="getLocation()">Try It</button>*@
+    <div class="location-subject">
+        <div class="box currentlocation">
+            <p class="header">Current Location</p>
+            <p id="address" class="header-info"> Current address </p>
+            <p id="location" class="header-info"> Building </p>
+        </div>
+
+
+        <div class="box lecture">
+            <p class="header">Lecture now</p>
+            <p class="header-info"> COMPSCI101 </p>
+            <p class="header-info"> Science Building </p>
+        </div>
+
+    </div>
+
+    <button class=" btn" style="
+    margin: 0 auto;
+    display:block;
+    width: 20%;
+    font-size:  200%;
+    margin-top:20px;
+    " onclick="displayPrompt()">
+        Check in
+    </button>
+
+
+    <p id="demo" style="position:absolute;"></p>
+
+
+
+    @*<p>Click the button to get your coordinates.</p>
+
+        <button onclick="getLocation()">Try It</button>
+
+        <p id="address"> Current address </p>
+        <p id="location"> Building </p>*@
+
+    @*----------------------------------------------------------------------------*@
+    @*Feedback Button below*@
+    @*----------------------------------------------------------------------------*@
+
+    <div class="container">
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Feedback</button>
+        <!-- Modal -->
+        <div class="modal fade " id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content page1-->
+                <div style="" class="modal-content" id="main_popup">
+                    <div class="modal-body  ">
+                        <div class="col-lg-12">
+                            <button type="button" class="close close_model" data-dismiss="modal">
+                                <span class="glyphicon glyphicon-remove-circle
+                                "></span>
+                            </button>
+                        </div>
+                        <div class="img_main">
+                            <img src="http://res.cloudinary.com/dxssokt4h/image/upload/v1509252236/img_1_hya4kw.jpg" />
+                        </div>
+                        <div class="heading_msg">
+                            <h3>Tell us how you found today's lecture! All feedback can be viewed by lecturers </h3>
+                        </div>
+                        <div class="row text-center give_feedback">
+                            <button type="button" id="give_feedback" class="btn btn-default">Give Feedback</button>
+                        </div>
+                    </div>
+                </div>
+                <!--END Modal content page1-->
+                <!-- Modal content page2-->
+                <div id="page2" style="display:none;" class="modal-content" style="box-shadow:none;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove-circle
+                                        "></span>
+                        </button>
+                        <h4 class="modal-title">Section 2 | Lecture Feedback</h4>
+                    </div>
+                    <div class="modal-body second_tab">
+                        <div class="row">
+                            <div class="mobile_progress_bar">
+                                <div class="text-left visible-xs" style="margin-bottom:40px;">
+                                    <div class="progress">
+                                        <div data-percentage="0%" style="width: 60%;" class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <strong>Your opinion Matters</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-lg-6 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="input" class="control-label col-md-2 col-sm-2 hidden-xs">a.</label>
+                                    <div class="col-md-10 col-xs-12 col-sm-8">
+                                        <div class="mat-input">
+                                            <div class="mat-input-outer">
+                                                <input type="text" autocomplete="off" />
+                                                <label class="">What did you find helpful today?</label>
+                                                <div class="border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-lg-6 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="input" class="control-label col-md-2 col-sm-2 hidden-xs">b.</label>
+                                    <div class="col-md-10 col-xs-12 col-sm-8">
+                                        <div class="mat-input">
+                                            <div class="mat-input-outer">
+                                                <input type="text" autocomplete="off" />
+                                                <label class="">Anything to work on for next lecture?</label>
+                                                <div class="border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-6 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="input" class="control-label col-md-2 col-sm-2 hidden-xs">c.</label>
+                                    <div class="col-md-10 col-sm-8 col-xs-12">
+                                        <div class="mat-input">
+                                            <div class="mat-input-outer">
+                                                <input type="text" autocomplete="off" />
+                                                <label class="">Would you like more examples?</label>
+                                                <div class="border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-lg-6 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="input" class="control-label col-md-2 col-sm-2 hidden-xs">d.</label>
+                                    <div class="col-md-10 col-xs-12 col-sm-8">
+                                        <div class="mat-input">
+                                            <div class="mat-input-outer">
+                                                <input type="text" autocomplete="off" />
+                                                <label class="">Any additional feedback</label>
+                                                <div class="border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-md-12 hidden-xs">
+                                <button type="button" id="ok" class="btn btn-default ok" data-dismiss="">Ok  <span class="glyphicon glyphicon-ok"></span></button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="visible-xs text-center">
+                                <button type="button" id="ok" class="btn btn-default ok" data-dismiss="">Ok  <span class="glyphicon glyphicon-ok"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-md-6 text-left hidden-xs">
+
+                                <strong>Your opinion Matters</strong>
+                                <div class="progress">
+                                    <div data-percentage="0%" style="width: 60%;" class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6 hidden-xs">
+                                @*<a href="#"><img src="images/1/up_arrow.png" id="arr1" style="margin-right:0px;"></a>
+                                    <a href="#"><img src="images/1/down_arrow.png" id="arr2" /></a>*@
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END Modal content page2-->
+                <!-- Modal content page3-->
+                <div id="page3" style="display:none;" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove-circle
+                                "></span>
+                        </button>
+                        <h4 class="modal-title">Section 2 | Lecture Feedback</h4>
+                    </div>
+                    <div class="mobile_progress_bar">
+                        <div class="text-left visible-xs" style="margin-bottom:40px;">
+                            <div class="progress">
+                                <div data-percentage="0%" style="width: 60%;" class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <strong>Your opinion Matters</strong>
+                        </div>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-md-12">
+                            <div class="col-xs-12 col-lg-6 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="input" class="control-label col-md-2 col-sm-2 hidden-xs">a.</label>
+                                    <div class="col-md-10 col-xs-12 col-sm-8">
+                                        <div class="mat-input">
+                                            <div class="mat-input-outer" style="margin-bottom:35px;">
+                                                <input style="height:60px;" type="text" autocomplete="off" />
+                                                <label style="font-size: 15px;
+                                                line-height: 20px;">Are there any comments or suggestions you'd like to share with us?</label>
+                                                <div class="border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" id="ok2" class="btn btn-default ok" data-dismiss="">Ok  <span class="glyphicon glyphicon-ok"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer col-md-12">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-md-6 text-left hidden-xs">
+
+                                <strong>Your opinion Matters</strong>
+                                <div class="progress">
+                                    <div data-percentage="0%" style="width: 60%;" class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6 hidden-xs">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END Modal content page3-->
+                <!-- Modal content page 4-->
+                <div id="page4" style="display:none;" class="modal-content">
+                    <div class="modal-body ">
+                        <div class="col-lg-12">
+                            <button type="button" class="close close_model" data-dismiss="modal">
+                                <span class="glyphicon glyphicon-remove-circle
+                                        "></span>
+                            </button>
+                        </div>
+                        <div class="thank_you_body">
+                            <div class="heading_msg2">
+                                <h3>
+                                    <span>Thank you!</span><br> Your feedback has been receieved!
+                                </h3>
+                            </div>
+                            <div class="row text-center give_feedback">
+                                <button type="submit" class="btn btn-default " data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Modal content page 4-->
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+
+<script>
+
+    function displayPrompt() {
+        swal.mixin({
+            input: 'text',
+            confirmButtonText: 'Validate &rarr;',
+            showCancelButton: true
+        }).queue([
+            {
+                title: 'Check-In',
+                text: 'Please input unique code'
+            }
+        ]).then((result) => {
+            if (result.value == '1552') {
+                swal({
+                    type: "success",
+                    title: 'Check-in successful',
+                    text: '100 coins have been added to your wallet.',
+                    imageUrl: '/coin.png',
+                    imageHeight: 50,
+                    confirmButtonText: 'Lovely!'
+                });
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Invalid Location!',
+                    text: 'You are not at your current lecture location.'
+                });
+            }
+        });
+    }
+
+
+    var x = document.getElementById("demo");
+    var mylocation = document.getElementById("location");
+    var lat = "";
+    var lng = "";
+    var currentlocation = "";
+    var proper_address = document.getElementById("address");
+
+    getLocation();
+
+    //var asd = "asd"
+
+    function getLocation() {
+        console.log("lmao");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition); //getting current co-ordinates
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        //x.innerHTML = "Latitude: " + position.coords.latitude +
+        //    "<br>Longitude: " + position.coords.longitude;
+        lat = position.coords.latitude;             //current latitude
+        lng = position.coords.longitude;            //current longitude
+        console.log(lat);
+        console.log(lng);
+        getCurrentLocation();
+    }
+
+    function getCurrentLocation() {     //get name from our coordinates
+        var urlapi = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true"; //api
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", urlapi, true);
+        xhr.onload = function () {
+            var locationJSON = JSON.parse(xhr.responseText);
+            //console.log(xhr.responseText);        //prints the json string
+            //console.log(locationJSON.results[0].address_components[0]);
+            var get_nickname_dictionary = locationJSON.results[0].address_components[0]; //this variable gives us  dictionary
+            //console.log(address["long_name"]); //prints the location name
+            var get_address_dictionary = locationJSON.results[2].address_components[0];
+
+
+            get_address_dictionary = get_address_dictionary["long_name"];
+
+            currentlocation = get_nickname_dictionary["long_name"];  //THIS IS THE NAME OF CURRENT LOCATION FROM CO-ORDINAATES
+            console.log(currentlocation);
+            mylocation.innerHTML = currentlocation; //puts this into frontend
+
+            console.log(get_address_dictionary); //print proper address of current location from co-ordinates
+            proper_address.innerHTML = get_address_dictionary;
+        }
+        xhr.send(null);
+    }
+
+
+</script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#mymodal").modal('show');
+        $("#give_feedback,#arr3").click(function () {
+            $("#page2").show();
+            $("#page3").hide();
+            $("#page4").hide();
+            $("#main_popup").hide();
+        });
+
+    });
+    $("#ok,#arr2").click(function () {
+        $("#page2").hide();
+        $("#page3").show();
+        $("#page4").hide();
+        $("#main_popup").hide();
+    });
+    $("#ok2,#arr4").click(function () {
+        $("#page2").hide();
+        $("#page3").hide();
+        $("#page4").show();
+        $("#main_popup").hide();
+    });
+    $("#arr1").click(function () {
+        $("#page2").hide();
+        $("#page3").hide();
+        $("#page4").hide();
+        $("#main_popup").show();
+    });
+</script>
+<script>
+    new wow().init();
+</script>
+<script>
+    $(function () {
+        $('.mat-input-outer label').click(function () {
+            $(this).prev('input').focus();
+        });
+        $('.mat-input-outer input').focusin(function () {
+            $(this).next('label').addclass('active');
+        });
+        $('.mat-input-outer input').focusout(function () {
+            if (!$(this).val()) {
+                $(this).next('label').removeclass('active');
+            } else {
+                $(this).next('label').addclass('active');
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.rating').magicratinginit({
+            success: function (magicratingwidget, rating) {
+                alert(rating);
+            },
+            icongood: "fa-bicycle",
+            iconbad: "fa-car",
+        });
+        $(".rating2").magicratinginit({
+            success: function (magicratingwidget, rating) {
+                alert(rating);
+            }
+        })
+    });
+</script>
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setaccount', 'ua-36251023-1']);
+    _gaq.push(['_setdomainname', 'jqueryscript.net']);
+    _gaq.push(['_trackpageview']);
+
+    (function () {
+        var ga = document.createelement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getelementsbytagname('script')[0];
+        s.parentnode.insertbefore(ga, s);
+    })();
+
+</script>
